@@ -1,0 +1,118 @@
+#Jenkins
+================================
+~ SDLC(Software development lifecycle) involves so many steps where the two of the major steps are
+    -> Writing Code
+    -> Build and Deployment
+
+~ Developers write code —> Push that to a repository(eg. Github) —> Compilation and build of the application —> Code review
+~ For the Code review step we can use a tool named as SonarQube
+~ Next up —> Package the app,using Docker —> Create an image out of the packaged app —> Use K8S to deploy the application
+
+*So we have many jobs altogether I.e. each step is a process
+*We can perform this manually one by one
+*It is a time-consuming, error-prone and repeated task process
+
+*We have an option to automate this process
+~ Jenkins is a CI CD tool/server
+~ It is free and open software/tool which is developed using Java language
+~ So, Java needs to be installed while using Jenkins
+
+~ Dev pushes code to a repo —> We use a tool to automate the process of build and deployment (Tool name : Jenkins)
+~ The moment there is a commit where Jenkins automatically runs code, complies test cases, performs code reviews via SonarQube, packages app into a war file, creates an image via docker and finally performs deployment via K8S
+~ Jenkins is activated when there is a commit in the code
+~ Jenkins uses tools to perform various jobs of each step(i.e. docker,SonarQube,k8s and so on)
+
+~ A Jenkins Pipeline is a suite of plugins that enables defining, managing, and automating CD (Continuous Delivery) pipelines as code
+~ We achieve CI/CD I.e. continuous integration continuous deployment using Jenkins
+~ CI CD is an approach to automate build and deployment process
+
+*Alternatives to Jenkins include GitLab and so on…..
+
+~ Using Jenkins we can deploy any type of project irrespective of the tech stack used(java, python,dotnet,react,…..)
+
+
+#Build and Deployment
+================================
+~ Taking latest code from Repo such as Github or Bit bucket
+~ Compling the code and building the source code using tools such as Maven,Gradle,…..
+~ Perform Code Review using tools such as SonarQube
+~ Uploading the project Artifact into Nexus (place where we can maintain the entire jar or war files)
+~ Create a Docker Image with Docker
+~ Deploy code/app into server using K8S
+
+*To automate the Build and Deployment Process of our app we can use tools such as Jenkins, GitLab(paid) and so on…….
+
+
+#Installation
+================================
+~ Installation can be done in two ways:
+   -> Jenkins Installation in Linux VM
+   -> Jenkins Installation on local system
+
+*We’ll be using Linux Vm method for learning
+*In both cases we have same UI to work upon
+
+
+#Jenkins Installation in Linux VM
+================================
+~ Create Linux VM on the AWS cloud — Ubuntu , Amazon Linux , Redhat or so……..
+*For Jenkins AWS we require minimum instance type t2.medium —> if not used we’ll face lag issues
+*Install Java
+~ sudo yum update —> Updates package manager
+~ sudo yum install java
+~ java -version —> To check if java is installed
+*Install Jenkins
+~ sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+~ sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+~ sudo yum install jenkins -y
+*Enable and Start Jenkins
+~ sudo systemctl enable jenkins
+~ sudo systemctl start jenkins
+~ sudo systemctl status jenkins
+
+*We must get active(running)
+
+*Now go to the AWS web console and in the security group of the “Jenkins-Server” enable the 8080 port no.
+
+*Now  go the instances and copy public id
+*Next up on the browser hit as <public-ip>:8080
+
+*We get a webpage with heading “Unlock Jenkins” with some commands 
+~ The dashboard gives a command to get password
+~ Get pass word as —> sudo cat <command>
+				—> sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+~ Copy and paste the password and click “continue”
+~ Select “install required plugins”
+~ We’ll get some plugins being installed which may take 2-3 minutes
+~ We can also install these later 
+
+*Configure the First Admin user as ~
+~ Username
+~ Password 
+~ Full name
+~ E-mail address
+~ Click on “Save and Continue”
+
+~ Now click “Save and Finish”
+
+~ Next up, click “Start Using Jenkins”
+
+~ We’ll be seeing the Jenkins Dashboard
+
+*Job is referred to as any step which is assigned to Jenkins
+*We can configure many things on the dashboard
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
