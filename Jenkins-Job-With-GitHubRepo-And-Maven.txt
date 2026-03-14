@@ -1,0 +1,66 @@
+#Jenkins Job with GithubRepo and Maven:
+======================================================
+*With ubuntu VM git is pre installed while in case of redhat and Amazon Linux VM we need to install it
+~ sudo yum install git -v
+~ git -v
+
+*Next up,We need to configure the Maven tool in our dashboard
+~ Open Jenkins dashboard
+~ Login with credentials
+~ Open Settings —> Click on “Tools”
+~ Locate the option of “Maven Installations”
+~ Click “Add Maven”
+~ Configure as below~
+	->Name : maven
+	->Rest everything default
+	->Make sure “Install from Apache” check box is checked
+~ Click “Apply” and “Save”
+
+*Now maven is configured in our Jenkins Dashboard
+
+~ Now on the Jenkins Dashboard itself perform as below:
+~ Click on “New Item”
+~ Enter name as : Jenkins-git-maven-job
+~ Select Item type as : Freestyle Project
+~ Click “OK”
+~ Give a General Description
+~ Under “Source Code Management Select “Git”
+~ Give Repository URL as “https://github.com/Haider7214/SpringApp.git”
+~ As Branch on the Github is main change */master —> */main
+~ Also, The repository used is a public repository therefore credentials aren’t required else we have to mention them
+~ Under Build Steps Select —> Invoke top-level Maven targets
+						—> Select maven version as “maven” the one configured earlier
+						*We get “maven” because we have configured it globally
+~ Now Under goals write as —> clean compile test package
+~ Rest everything is default for now
+~ Click “Apply” then click “Save”
+
+*Our Job is ready
+*Go to the home page of the dashboard
+*We’ll have the name of our created job being displayed
+
+~ Click on the created Job
+~ Click on “Build Now”
+*we’ll get a “Build Scheduled” Pop up
+
+~ Now click on the Status and click on drop down button of “last build”
+~ Select “Console Output”
+~ Scroll down till the very end and then find the location to where the project has been located 
+~ Now hit commands on the Terminal so as to verify target folder to check whether war file is created or not~
+~ cd /var/lib/jenkins/workspace
+~ ls -l
+~ cd jenkins-git-maven-job-1
+~ ls -l
+~ cd target 
+~ ls -l
+
+*The whole purpose of this Jenkins Job was to clone the GitHub repo, to get code from there and also use maven tool to compile, test and package into jar or war file
+
+*If we go to our job and Click “Configure” we observe that we can edit or make changes even after job creation
+
+~ We have many features under Triggers which can be understood by clicking on the ? Symbol after them
+~ Build Periodically —> It is basically a cron like feature where we can write cron job commands to compile as per time
+~ Poll SCM ~ If there is a new commit in the repo it will recompile retest and package as per the new configurations
+~ We have options to send mails, delete workspaces and so on under Environments
+~ Also,we have Post-build actions where we can choose some jobs to be executed after job completion 
+
