@@ -1,0 +1,61 @@
+#Jenkins-User-Roles:
+============================================================
+~ Till now we have full access to work with Jenkins
+~ But we have different teams and we don’t want to give Jenkins full access to everyone 
+Eg. we want to give development team only the access to run the jobs 
+
+~ Analogous to IAM in AWS we want to restrict users to a specific access in Jenkins we can perform this using the concept of User-Roles
+
+Eg.
+~ We have a DevOps team with 4 members authorised to n no. Of operations
+~ We may have Dev and Testing team which have privileges to a limited no. Of operations
+~ Here the concept of User roles comes into picture
+
+#User and Roles in Jenkins:
+============================================================
+~ Generally, in every project multiple teams are there (Dev,QA,DevOps and so on) and for every team Jenkins aces would be provided
+~ Every team member will have their own user account to login into the Jenkins and Not everyone have complete access to Jenkins
+~ Certain teams such as Dev and Qa will have limited access as their responsibility is just to run the job not creation, manipulation or deletion while,
+~ Operations team will have more access to Jenkins as they are responsible to create edit or delete the jobs in Jenkins
+
+#Setting-up-User-and-Roles:
+============================================================
+~ Connect to VM via ssh
+~ Configure the new public ip in vars/lib/jenkins
+~ Connect to Jenkins dashboard i.e. Sign in
+~ Go to settings
+~ Locate the “Users” option present under “Security” Section
+~ Open it
+~ We have the admin user present here
+~ We can click on it and we observe various information and configure options for the user
+~ Click on “Create User”
+~ Configure as:
+	Username: demo
+	Password: demo12
+	Confirm Password: demo12
+	Full Name: demo user
+	Email: demouser8989@gmail.com
+~ Click “Create user”
+~ Click on created user “demo” and we can configure anything as per our need
+
+~ Now go to Jenkins home page —> Open Settings —> Open Security
+~ Scroll down to Authorisation
+~ Select “Project based Matrix Authorisation Strategy”
+~ Now we can access the Users/groups
+~ Add user by providing the user id i.e. demo by clicking “Add user”
+~ After user addition we can specify operations for the added user by selecting/deselecting check-boxes
+~ For n users in a team we don’t have to specify operation for them one by one
+~ Else we can add them to a group and specify operations for a group 
+~ Click “Apply” then click “Save”
+
+~ Now just “sign-out” and login using demo-user credentials 
+~ Now,what we observe is that we don’t have much access for different parameters using the new user “demo”
+~ “Sign-out” and all set! 
+
+#Notes:
+============================================================
+~ In Triggers we have an option of Build Periodically which is basically analogous to cron jobs
+~ We we type * * * * * there it means every minute, every day ,every month ,every year and every day of the week the job will be executed I.e scheduled to work as per our configuration
+~ The Poll SCM is also cron job type of execution where it scans as per scheduled configurtion the Github repo for any changes —> If there exists any change i.e.a commit then only job is executed
+Eg. if we make any changes while Poll SCM is configured the Jenkins Job will be executed
+
