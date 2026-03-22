@@ -1,0 +1,65 @@
+#Master-Slave-Architecture:
+=============================================================
+~ The thing is we have created a single Jenkins-Server VM where every operation is performed
+~ That creates a lot of load on a single VM
+~ What we can do is that we can create n Slave machines on top of master machine
+
+~ The job to create a job is done on the master machine while,
+~ All the Jobs/pipelines are executed in the slave machines
+
+~ The above is termed as a Master-Slave Architecture
+~ In real time scenarios we use this architecture though functionality remains the same
+ 
+#Practical Implementation:
+=============================================================
+~ Create/Connect to an Existing Jenkins Server VM,the master machine
+~ If using an existing Jenkins Server configure the new public ip in /vars/lib/jenkins and edit “jenkins.model.JenkinsLocationConfiguration.xml”
+~ Next up, create a new EC2 instance, with node type as t2.micro as we are just running jobs here (we can use medium as well)
+~ Connect to the slave VM via ssh on Mac terminal
+~ Also enable 8080 in inbount rules of newly created Slave VM
+~ To have a differentiating factor for both the machines use the command
+-> sudo hostname jenkins-master
+-> sudo hostname jenkins-slave
+~ exit and reconnect for both
+~ for respective VM connections
+~ Install git and java in slave-vm ,considering everything is set up in master machine
+~ Verify installation of both
+~ Create a slave node in jenkins slave VM as
+-> mkdir slavenode
+
+*We have to establish a link(relationship) between the slave and master VMs 
+*for now both are isolated
+
+~ Sign in to the Jenkins dashboard of the Master-Jenkins-Server
+~ Go to seetings --> Nodes 
+~ Click on "New Node"
+~ Give a Node name as per choice(eg slave1)
+~ Select checkbox for permanent agent 
+~ Click "Create Node"
+
+~ Next up configure as :
+	Description : as per choice
+	No. of executors : These refer to the no. of jobs to be executed at a time in the slave node --> 1 suits best for now
+	Remote Root Directory : To configure this get to the terminal where slave VM is connected --> cd slavenode --> pwd --> copy the present working directory(pwd) --> paste in required tab
+	Labels : slave-1
+	Launch method : Launch agents via ssh
+		-> Host : To get host go to the slave instance  and copy the public DNS and paster here
+		-> Credentials : We can add new Credentials --> Add --> Specify "SSH Username with private key" under Kind --> Give ID as "Jenkins-Slave-Credentials" --> Username : ec2-user(for Amazon Linux VM)
+					    --> To enter the Key go to a new terminal --> cat Downloads --> cat "xyz".pem --> copy the contents and paster here
+		-> Click "Add"
+		-> Select the Created Credentials
+		-> Host-Key Verification Strategy : Manually trusted key Verification Strategy	
+~ Click "Save"
+
+~ Now go to the slave VM and hit the commands as:
+~ cd
+~ ls -l
+~ cd slavenode
+~ ls -l
+*We'll see two new files named as remoting and remoting.jar
+*This means connection has been established
+
+~ cd remoting
+~ ls -l
+
+
