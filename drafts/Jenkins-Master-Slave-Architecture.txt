@@ -62,4 +62,40 @@
 ~ cd remoting
 ~ ls -l
 
+#Jenkins-Master:
+=============================================================
+~ The machine/server where Jenkins tool is installed can be referred to as master Machine which is used to create jobs, schedule the jobs and manage jobs.
+~ It will also distribute job executions into slave machines/servers.
+
+#Jenkins-Slave:
+=============================================================
+~ Its a machine which is connected to Jenkins master machine and executes the jobs/tasks assigned by master machine/server
+~ Slave server/machine will receive tasks from master machine 
+
+#Creating a basic Job for illustration:
+=============================================================
+~ Create a new job 
+~ Give name as jenkins-master-slave and select item type as "Freestyle Project"
+~ Next, give description as per choice 
+~ Add build step --> Select "Execute shell"
+~ Add command as :
+	echo "First Job"
+	touch alien.txt
+	echo "Job executed Successfully"
+~ Click "Apply" and then "Save"
+~ Go to the home page and click on the newly created job
+~ Click "Build Now"
+~ Now go to the "Configure" of the job
+~ Select "Restrict where this project can be run"
+~ Add Label Expression as "slave-1" configured earlier as under Labels
+~ Click "Apply" and "Save"
+~ Again Click "Build Now" 
+
+*Now if we go to the Console output of successfully created job we'll have a workspace location as /home/ec2-user/slavenode/workspace
+
+~ Get to the terminal where the slave VM is connected and follow as
+~ cd /home/ec2-user/slavenode/workspace
+~ ls -l
+
+*We'll see the alien.txt file created here
 
