@@ -1,0 +1,95 @@
+#Jenkins-Pipelines:
+====================================================================
+~ CI/CD refers to continuous Integration continuous Deployment
+~ Pipeline is a workflow which contains so many stages to achieve CICD
+~ Pipeline defines the entire CICD as a code
+
+~ From taking code from a repo till deployment refers to the CICD
+
+~ We have two approaches for defining pipeline as a code:
+-> Scripted
+-> Declarative
+ 
+*Pipelines are code written to execute the process of CICD
+
+~ Pipeline contains stages to perform CICD process as a code which are as follows:
+-> Clone Git Repo
+-> Maven build
+-> Code Review using Nexus
+-> Artifact Upload
+-> Building the Docker Image
+-> Push Docker image to registry
+-> Deploy Application in K8S
+
+*The steps may be varrying and might not be used for different cases
+
+#Declarative Pipeline:
+====================================================================
+~ In Pipeline we write everything as a code
+
+Eg.
+~ Get connected to the Jenkins-Server VM
+~ Access the Jenkins dashboard
+*Make sure maven is configured
+~ Click on “New Item”
+~ Enter item name : First-Pipeline
+~ Select an item type as : Pipeline
+~ Click “OK”
+~ Give a Description as per choice
+~ Keep everything default
+~ Under “Pipeline Script” we have the option to write a pipeline
+~ We have an option of “try sample pipeline” to checkout various syntax and pre-written pipelines such as Hello-World and so on
+~ stages refer to different stages inside a block
+~ stage is a stage or a process basically —> Activity being performed
+~ step is the execution to be performed in a stage —> How an activity is being performed
+
+~ Click “Apply” and then “Save”
+~ Open created pipeline and click on “Build Now”
+
+~ We have an operation of viewing the pipeline overview where the entire end-to-end pipeline is displayed
+
+*In pipeline every step is dependent on each other 
+I.e. only if a project is cloned from a repo then only is maven build performed on it
+
+~ All the stages in the pipeline are dependent on each other, they are executed one -by -one in sequential order
+
+Eg. of a Declarative pipeline(jenkins+git+maven)
+~ Click on “New Item”
+~ Enter item name : First-Jenkins-Pipeline
+~ Select an item type as : Pipeline
+~ Click “OK”
+~ Give Description as per choice
+~ Under “Pipeline Script” Select “Github + Maven” from the drop down on top-right corner
+~ Declarative Pipeline is as :
+pipeline {
+    agent any
+    tools{
+		maven “maven”
+	}	
+    stages {
+        stage('Git Repo Cloning') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Haider7214/SpringApp.git'
+            }
+        }
+        stage('Maven Build') {
+            steps {
+                sh "mvn clean compile test package"
+            }
+    }
+}
+}
+
+~ If we don’t know the Syntax click on “Pipeline Syntax” —> Select operation from “Sample Step” drop down
+~ Configure various parameters
+~ Click “Generate Pipeline Script”
+~ And we’ll get an operation specific script as per requirement
+
+~ Click on “Apply” and then “Save”
+~ Open created pipeline and Click “Build Now”
+~ Now we can view “Stages” or “Pipeline Overview” to get detailed view of the steps
+
+*We can install various plugins to get a better visual representation of pipeline stages 
+
+*Tomcat is outdated in the current time scenario in the industry 
+*Most of the firms use K8S for deployment 
