@@ -93,3 +93,46 @@ pipeline {
 
 *Tomcat is outdated in the current time scenario in the industry 
 *Most of the firms use K8S for deployment 
+
+#Deploying the above war using Tomcat:
+====================================================================
+~ Earlier we had used the plugin “Deploy to Container” in our freestyle project to deploy our war using a separate Tomcat Server
+~ Now, we are using pipeline and to deploy our maven generated war to Tomcat we have to use “SSH agent to copy war file” to tomcat to deploy our application
+*Tomcat is least widely used but not completely outdated in the market
+
+~ Create a tomcat-server VM
+~ Connect to it via ssh connection
+~ Install tomcat using the help of Ai Tools
+~ Configure context.xml and tomcat-users.xml
+~ Start the tomcat Server
+~ Enable 8080 in inbound rules and connect to the Tomcat server and sign in to Manager App
+
+~ Open Jenkins dashboard
+~ Go to Settings —> Open plugins
+~ Click “Available plugins” —> Search for “ssh agent”
+~ Install it 
+
+~ Now go to the created pipeline “First-jenkins-pipeline”
+~ Go to Configure
+~ Now Click on Pipeline Syntax
+~ Select “SSH agent” —> It’s only visible if ssh agent plugin is installed
+~ Now configure the credentials 
+~ Enter pem key ,credentials and so on 
+~ Generate the pipeline script —> Copy and paste it in continuation to the existing script
+~ Click “Apply” and “Save”
+
+~ Click on the created Job and Click “Build Now”
+~ Open the Tomcat Server /Manager App and we’ll see our app deployed using the Tomcat Server
+
+#SSH AGENT CONFIGURATION:
+====================================================================
+~ It’s used to establish remote ssh connection from one server(Linux VM) to another server(Linux VM)
+Eg. Jenkins server is getting connected to Tomcat server to copy war file
+
+~ Install SSH Agent plugin to use it
+
+#Pipeline-Script:
+====================================================================
+
+
+
