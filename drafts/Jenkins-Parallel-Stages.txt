@@ -1,0 +1,65 @@
+#Parallel-Stages:
+=======================================================
+~ For now, all the pipelines which have been executed by us are executed in sequential steps i.e. one after the preceding one
+~ Also, for above case the steps are dependent on each other
+
+~ There exists some steps which are independent after some operations are successfully over
+~ These are some operations which become independent
+
+~ We use the keyword parallel after defining the stage for parallel execution of tasks 
+~ Syntax is as:
+
+stage(“Parallel Stage”){
+parallel{
+	stage(“code review”)
+		{
+			steps{
+				echo “Code review”
+		}
+	}
+}
+}
+
+~ We can add multiple stages and steps within the parallel block to addd multiple parallel steps
+
+Eg. Parallel pipeline script
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Too Install') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage('Git Clone') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage('Maven Build') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage("Parallel Stage"){
+            parallel{
+                stage("Code review"){
+                    steps{
+                        echo "Code Review"
+                    }
+                }
+                stage("Nexus Upload")
+                {
+                    steps{
+                        echo "Nexus Operation done"
+                    }
+                }
+        }
+    }
+}
+}
+ 
+~ Just Create a job with above pipeline code and Build it
+~ After Successful build we can see the pipeline Overview to understand the working of parallel stages in a better visual representation 
