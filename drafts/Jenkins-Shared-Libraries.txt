@@ -1,0 +1,44 @@
+#Jenkins-Shared-Libraries:
+===========================================================
+~ Jenkins Shared Library is a collection of reusable Groovy scripts stored in a version control system (like Git) that can be loaded into and used by any number of Jenkins pipelines.
+~ Extension is as .groovy
+~ we use these as functions within the steps as functionName(),telusko(),maven(),and so on
+
+~ For some operations to achieve some goals we have to execute same steps every time eg. stage build
+~ There do exists some tasks where we have variation in steps such as cloning git repositories
+
+Eg.
+~ There are two projects for which we have to create the pipelines 
+~ For both we have some repeating steps 
+~ That means there are common steps in both the projects which are being repeated again and again for each project pipeline
+~ We can follow the concept of Shared libraries where we keep shared libraries in groovy scripts which can be invoked whenever required
+~ This omits the steps of hardcoding things which are already present in groovy scripts
+
+#Configuring-System-Settings:
+===========================================================
+~ We need to configure the Libraries in Settings —> System
+~ Search for “Global Trusted Pipeline Libraries”
+~ Configure as below:
+-> Name : Ankush_Shared_Library
+-> Default Version : main
+-> Source Code Management : Git
+-> Project Repository : https://github.com/Haider7214/shared-lib.git
+-> Click ’Apply’ and ’Save’
+
+~ Now Create a job and Configure pipeline as below 
+
+Eg.
+@Library('Ankush_Shared_Library') _
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                telusko()
+            }
+        }
+    }
+}
+
+~ After Successful build check “Pipeline Overview” and “Console Output”
