@@ -133,6 +133,32 @@ Eg. Jenkins server is getting connected to Tomcat server to copy war file
 
 #Pipeline-Script:
 ====================================================================
+pipeline {
+    agent any
+    tools{
+        maven "maven"
+    }
+    stages {
+        stage('Git Repo Cloning') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Haider7214/SpringApp.git'
+            }
+        }
+        stage('Maven build') {
+            steps {
+                sh "mvn clean test compile package"
+            }
+        }
+        stage('deploy app') {
+            steps {
+                sshagent(['tomcat-server']) {
+                sh 'scp -o StrictHostKeyChecking=no target/FirstSpringWebApp-0.0.1-SNAPSHOT.war ec2-user@13.203.223.2:/opt/tomcat9/webapps'
+                }
+            }
+        }
+    }
+}
 
+*Remember not to add "%" during key addition at the very end to avoid ssh issue
 
 
