@@ -1,0 +1,14 @@
+#Jenkins-Multibranch-Pipeline:
+====================================================
+~ By multi branch we refer to git projects which might be present in multiple branches
+Eg. main, master, feature, developer, etc.
+
+~ We can create a pipeline for each of the branches of a repository
+~ This is possible though creation and maintainence is not very easy
+
+~ To solve this we can create a single pipeline and build the code from multiple branches at a time 
+~ This is the concept of Multi-branch Pipeline
+~ The Multi-branch concept scans for all the branches of the given repository so we do not have to explicitly mention the branches
+~ The pipeline is then executed for all the branches
+
+~ If we have n branches ,the  pipeline is executed for the second time for only the branch where new code commits are done 
