@@ -1,0 +1,84 @@
+#Jenkins-Scripted-Pipelines:
+==================================================
+~ We also have option to write Jenkins-Pipelines in Scripted style
+~ We follow the syntax or basically the groovy language
+
+~ Groovy is a java like language
+~ Groovy is basically an object-oriented language
+
+~ Advantages of using groovy language:
+-> Flexibility
+-> Customization
+-> Reusable components
+-> We can add loops, if statements and so on as basic as a programming language
+
+~ Syntax of groovy
+node{
+	stage(‘stage-name’){
+	//operations
+}
+}
+
+*Though for most of the cases we have to use declarative styles until or unless programming language requirements are met
+
+#Example - 1:
+==================================================
+~ Create a Job with item type as Pipeline and name as Scripted-pipeline
+~ Click “OK”
+~ Next up, Give description as per choice
+~ Under Pipeline—>Script
+~ We have option of Scripted pipeline on top right corner drop down(“try sample Pipeline”)
+~ The basic structure uses many things like if-else, functions ,variable concepts and so on
+~ This is because groovy is a programming language
+~ Basic script to begin with :
+
+node {
+    
+    stage('Preparation') { 
+        echo "git-clone"
+    }
+    stage('Build') {
+      echo "Building file"
+    }
+    stage('Results') {
+        echo "deploying"
+    }
+}
+
+~ Click on “Apply” and “Save”
+
+~ Now click on “Build Now”
+~ We’ll get a successful build
+~ Check Pipeline Overview or Console Output and we’ll get positive results
+
+#Example - 2 (Git + Maven):
+==================================================
+~ For the second example all the steps remain same 
+*Make sure “maven” is globally configured
+~ The updated script is as
+
+node {
+    def mvnPath
+    stage('Preparation') 
+    { 
+       git branch: 'main' , url: 'https://github.com/Haider7214/SpringApp.git' 
+    }
+    stage('Build') 
+    {
+        def mvnHome = tool name: "maven",type:"maven";
+        mvnPath = "${mvnHome}/bin/mvn";
+        sh “${mvnPath} clean package"
+        echo "Maven Build Successful"
+    }
+}
+
+~ Now click on “Build Now”
+~ We’ll get a successful build
+~ Check Pipeline Overview or Console Output and we’ll get positive results
+
+#Notes:
+==================================================
+~ Most of the Pipelines are in the Declarative format
+~ We do have option to use Groovy and Scripted approach
+
+
