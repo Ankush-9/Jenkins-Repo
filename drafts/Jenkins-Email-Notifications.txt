@@ -1,0 +1,91 @@
+#Jenkins-Email-Notifications:
+========================================
+~ Jenkins email notification is a feature that allows the automation server to send automated status updates (such as success, failure, or unstable) to developers and stakeholders after a build or pipeline completes
+~ We can add Email-Notification to any of the pipelines created earlier as well regardless of type of pipeline
+
+~ To set-up the email service go to settings
+~ Open System
+~ Scroll down and search for Extended Email Notification
+~ Write now for practice we’re using the gmails’ smtp server details
+*While working in a tech firm we’ll be provided by smtp details to be used by the companies
+
+~ Use SMPT server as smtp.gmail.com
+~ Now go to the advanced option and we are required to add our own credentials
+~ Configure as :
+	-> Add Credential : Username and Password
+	-> Next
+	-> Username : waliaankush0420@gmail.com
+	-> *For password we are required to set up a gmail app password
+	-> Go to your browser and search for “app password gmail”
+	-> Open it and Create an app password by providing a name such as awsdevops 
+	-> Copy the password and paste it in the password section
+	-> Click “Create”
+	-> Select created credentials
+	-> Checkbox select “Use SSL”
+	-> The SMTP port must be 465
+~ Click Apply and then Save
+
+*To test Email-Notification
+~ Scroll down to Email-Notifications 
+~ Provide same username and app password as above
+~ Check box select “Use SSL”
+~ SMTP Port : 465
+~ Now Select check box “Test configuration by sending test e-mail”
+~ Enter any recipient email id and click “Test Configuration”
+~ We’ll get a test mail on the configured email id
+
+
+#Script-With-Email-Notification:
+========================================
+*To configure the email service we need to add the post block in our pipeline code
+~ We can generate a script using “Pipeline Syntax” of type “emailtext: Extended Email”
+~ Now we have to configure whether or not to attach logs, recipient email id, body, subject, from(email id of sender) and so on
+~ We need to define the Success and Failure block within which the generated script is pasted
+~ An example illustration of pipeline is as below
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Git Cloning') {
+            steps {
+                echo 'Cloning project from Github'
+            }
+        }
+        stage('Maven Build') {
+            steps {
+                echo 'Building Project on Maven'
+            }
+        }
+        stage('Deploying') {
+            steps {
+                echo 'Deploying using Tomcat'
+            }
+        }
+    }
+
+    post {
+        failure {
+            emailext(
+                attachLog: true,
+                body: 'The build failed due to an error',
+                from: 'waliaankush0420@gmail.com',
+                subject: 'Build Failure',
+                to: 'ankushwalia00000@gmail.com'
+            )
+        }
+
+        success {
+            emailext(
+                attachLog: true,
+                body: 'The build was successful with no errors encountered',
+                from: 'waliaankush0420@gmail.com',
+                subject: 'Build Success',
+                to: 'ankushwalia00000@gmail.com'
+            )
+        }
+    }
+}
+
+~
+*We’ll get an email after build and status of build unless there exists a syntax error
