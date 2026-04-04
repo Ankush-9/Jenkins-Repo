@@ -1,0 +1,70 @@
+#Jenkins-Job-Parameter:
+===================================================
+~ Parameters allow you to prompt users for one or more inputs that will be passed into a build.
+~ Each parameter has a Name and some sort of Value , depending on the parameter type. These name-value pairs will be exported as environment variables when the build starts, allowing subsequent parts of the build configuration (such as build steps) to access those values, e.g. by using the ${PARAMETER_NAME} syntax (or %PARAMETER_NAME% on Windows).
+
+~ After connecting to the Jenkins Dashboard click on the New Item
+~ Give a name and select Freestyle Project as the item type
+~ Under general we have a checkbox as “This project is parameterised”
+~ Select the checkbox
+~ Now we have an option to add parameter of various data types
+~ For illustration select “String Parameter”
+~ Now Configure as:
+	-> Name : fName
+	-> Default Value : Ankush
+~ Add another parameter of String type
+	-> Name : lName
+	-> Default Value : Walia
+	
+~ Under Build Steps —> Select “Execute Shell”
+~ Shell script is as :
+	echo “I am “$fName $lName
+	echo “I am learning devOps”
+~ Click Save 
+~ Open created job and click “Build with parameters”
+~ Click create and Check out the “Console Output”
+
+*As done above we have have multiple parameters of different types
+
+#Choice-Parameter:
+===================================================
+~ The Choice Parameter is used to provide options to the user at the time of Building Project with parameters
+~ Configure the existing Job
+~ Click on “Add Parameter”
+~ Select “ Choice Parameter”
+~ Give Name - age
+~ Choices as 10 20 25 30
+~ Update Shell script as 
+	echo "I am "$fName $lName
+	echo "I am Learning DevOps"
+	echo "My age is "$age
+~ Click Apply and then Save
+
+*Now if we build the job with Parameters we’ll have option to choose the Age 
+
+#Example-Parameterized-Job:
+===================================================
+~ In addition to above Parameters the new Choice Parameter Added is ENV, with choices as :
+	Dev
+	QA
+	Production
+~ Shell :
+	echo "I am "$fName $lName
+	echo "I am Learning DevOps"
+	echo "My age is "$age
+	echo "Environment alloted : "$ENV
+	if [ '$ENV' == "Dev" ]; then
+	echo "Deploying into Dev ENVIONMENT"
+	else
+	echo "Deploying into $ENV Environment"
+	fi
+
+#Notes:
+===================================================
+~ On the Jenkins Dashboard homepage we have an option of “Build executor status”
+~ This basically defines how many jobs can be run in parallel
+~ We can configure it by clicking on it 
+~ We’ll be redirected to the Nodes page
+~ Click on the Build-in (default) node and update the No. Of executors to required no.
+~ Click Apply and Save
+~ After updation the changes will be reflected visible on the Jenkins dashboard home page
