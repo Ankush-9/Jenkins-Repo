@@ -1,0 +1,40 @@
+#SonarQube:
+=============================================
+~ SonarQube is a very popular code quality checking use
+~ With the help of SonarQube we can perform the code review to identify the developers mistakes in code
+
+~ Within SonarQube topic we have various parameters like Sonar Iuuses, Sonar Quality profiles,Sonar Quality gate and so on
+
+~ SonarQube is developed using java language however,
+~ SonarQube supports 30+ programming languages to perform code quality check or code review
+
+~ We can perform Code review using SonarQube either by adding it to our end to end CICD pipelines or separately as per the use case
+~ It is the responsibility of devOps engineers to generate Project code review report and share them with dev teams
+~ While Development team are responsible to fix sonar issues
+
+~ Sonar Issues : 
+—> These are the problems in the code  which are identified by SonarQube
+	-> Bugs(danger, whatever harms our code execution may cause
+	-> Vulnerabilities(security hotspots)
+	-> Duplicate Code blocked(repeated code)
+	-> Code smells
+	-> Code Coverage(How many lines of code is tested in unit testing	
+	
+~ Sonar Quality profile : 
+—> It sets some of the rules to perform code review					 
+—> Various languages have their own quality profiles such as java quality profile,Python quality profile and so on
+—> In SonarQube, for every programming one Quality profile is available with some set of rules tp perform code review	
+—> SonarQube identifies which programming language is used by our project and based on it performs code reviews
+eg. Python Project —> Python Quality Profile —> Python rules
+      Java Project —> Java Quality Profile —> Java rules
+
+~ Sonar Quality Gate:
+—> Quality Gate represents overall project code quality is passed or not (Customisable)	
+—> If Code quality fails we should not deploy our code 
+
+*We require to install Docker in our setup then further install SonarQube
+
+#SonarQube-Setup:
+=============================================
+~ Create Ec2 instance(t2.small or t2.medium) Amazon Linux VM
+~ Install Docker
