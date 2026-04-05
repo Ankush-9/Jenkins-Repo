@@ -38,3 +38,50 @@ eg. Python Project —> Python Quality Profile —> Python rules
 =============================================
 ~ Create Ec2 instance(t2.small or t2.medium) Amazon Linux VM
 ~ Install Docker
+
+#Installation-of-SonarQube:
+=================================================
+~ Create an Ec2 instance of type t2.medium or higher 
+~ The node type is selected so due to memory requirements
+~ Connect in terminal via ssh
+~ Install docker
+-> sudo yum install docker -y
+-> sudo systemctl start docker
+-> sudo systemctl enable docker
+-> sudo user mod -aG docker ec2-user
+-> exit and reconnect
+~ Check if docker is installed properly using : docker -v
+
+~ SonarQube is a paid software
+~ Use the lts version which is basically free community version
+~ Now to install sonarQube run the following command
+—> docker pull sonarqube:lts-community
+—>  docker run -d \
+  	--name sonarqube \
+  	-p 9000:9000 \
+  	sonarqube:lts-community
+
+*The port no. For sonarQube container is 9000
+*Also in inbound rules of the VM configure the port no. 9000
+
+~ Now copy the public id and search in browser as
+-> <public-ip-VM>:9000
+
+*We’ll be at the login page of SonarQube
+~ Login using “admin” for both the username and password 
+~ Next up, Change the password for security reasons
+~ After that we’ll be at the home page of SonarQube
+
+~ As discussed earlier Quality rules are programming language specific and for example are as :
+Java ~ 628
+Python ~ 230 
+And so on…..
+
+*Quality Gate can be configured as per our own choice to check for code
+*We can also configure rules in Quality Profiles as per our own choice 
+*For a DevOps we have to check for default rules only 
+
+~ Creation of Tokens:
+~ We can create tokens by navigating to Security
+~ Home -> Profile -> My Account -> Security -> Create Token
+*To create a token give a name and select token to be of type “Global Analysis Token”
