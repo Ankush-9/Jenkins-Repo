@@ -1,6 +1,6 @@
 #SonarQube:
 =============================================
-~ SonarQube is a very popular code quality checking use
+~ SonarQube is a very popular code quality checking tool
 ~ With the help of SonarQube we can perform the code review to identify the developers mistakes in code
 
 ~ Within SonarQube topic we have various parameters like Sonar Iuuses, Sonar Quality profiles,Sonar Quality gate and so on
@@ -23,7 +23,7 @@
 ~ Sonar Quality profile : 
 —> It sets some of the rules to perform code review					 
 —> Various languages have their own quality profiles such as java quality profile,Python quality profile and so on
-—> In SonarQube, for every programming one Quality profile is available with some set of rules tp perform code review	
+—> In SonarQube, for every programming language one Quality profile is available with some set of rules tp perform code review	
 —> SonarQube identifies which programming language is used by our project and based on it performs code reviews
 eg. Python Project —> Python Quality Profile —> Python rules
       Java Project —> Java Quality Profile —> Java rules
